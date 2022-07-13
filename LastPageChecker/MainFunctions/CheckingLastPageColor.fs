@@ -67,17 +67,18 @@ let private compareColorOfLastScannedImages (listOfFiles: string list) ((numberO
                                           path 
                                   | false -> 
                                           let path = string <| listOfFiles.Item (item - 1)
-                                          path                                    
-                             
-                              let pathWithArgument = pathWithArgument()  //legacy name
-                              let fileName = sprintf "%s-%s page %i" (string low) (string high) item
-                              let ((compare: ResultStatus), (image: System.Drawing.Bitmap)) = bitmapCreator pathWithArgument 
-                              let image = image
-                                          |> Option.ofObj                                          
-                                          |> optionToBitmap "bitmapCreator"
-                              
+                                          path      
+                                          
                               let myFunction x = 
-                                 //napsani do konzole vysledky kontroly barvy  
+
+                                  let pathWithArgument = pathWithArgument()  //legacy name
+                                  let fileName = sprintf "%s-%s page %i" (string low) (string high) item
+                                  let ((compare: ResultStatus), (image: System.Drawing.Bitmap)) = bitmapCreator pathWithArgument 
+                                  let image = image
+                                              |> Option.ofObj                                          
+                                              |> optionToBitmap "bitmapCreator"
+                                  
+                                  //napsani do konzole vysledky kontroly barvy  
                                   match compare with
                                   | Correct               -> do saveImage image fileName 
                                                              false //tryFind nalezne false, takze pokracuje dale
