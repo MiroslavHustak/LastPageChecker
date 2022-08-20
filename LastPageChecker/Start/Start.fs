@@ -46,8 +46,7 @@ module Start =
         let result = 
            let ropResults = tryWith myFunction (fun x -> ()) (fun ex -> failwith)                                                     
            ropResults |> deconstructor1 error17 
-        result
-        
+        result        
         
         //****** 3) PIPING INPUT VALUES FROM EXCEL INTO RELEVANT FUNCTIONS   
         

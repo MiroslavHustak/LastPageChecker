@@ -70,26 +70,29 @@ let private compareColorOfLastScannedImages (listOfFiles: string list) ((numberO
                                           path      
                                           
                               let myFunction x = 
-
-                                  let pathWithArgument = pathWithArgument()  //legacy name
-                                  let fileName = sprintf "%s-%s page %i" (string low) (string high) item
-                                  let ((compare: ResultStatus), (image: System.Drawing.Bitmap)) = bitmapCreator pathWithArgument 
+                                 
+                                  let ((compare: ResultStatus), (image: System.Drawing.Bitmap)) = 
+                                     let pathWithArgument = pathWithArgument()  //legacy name
+                                     bitmapCreator pathWithArgument 
                                   let image = image
                                               |> Option.ofObj                                          
-                                              |> optionToBitmap "bitmapCreator"
+                                              |> optionToBitmap "bitmapCreator"                                  
                                   
-                                  //napsani do konzole vysledky kontroly barvy  
-                                  match compare with
-                                  | Correct               -> do saveImage image fileName 
-                                                             false //tryFind nalezne false, takze pokracuje dale
-                                  | NotCorrect            -> do printfn "-----------------------------------------------------"
-                                                             do printfn "V intervalu %s%s-%s je chyba!!!" CheckingLastPageColor_Settings.Default.prefix (string low) (string high) 
-                                                             do printfn "-----------------------------------------------------"
-                                                             true   //tryFind nalezne true, takze cyklus konci  
-                                  | PotentiallyNotCorrect -> do printfn "Potencionální chyba může být v intervalu LT-%s-%s, vzorek byl uložen jako %s." (string low) (string high) fileName
-                                                             do saveImage image fileName
-                                                             false      
-                              
+                                  let result = 
+                                      let fileName = sprintf "%s-%s page %i" (string low) (string high) item
+                                      
+                                      //napsani do konzole vysledky kontroly barvy  
+                                      match compare with
+                                      | Correct               -> do saveImage image fileName 
+                                                                 false //tryFind nalezne false, takze pokracuje dale
+                                      | NotCorrect            -> do printfn "-----------------------------------------------------"
+                                                                 do printfn "V intervalu %s%s-%s je chyba!!!" CheckingLastPageColor_Settings.Default.prefix (string low) (string high) 
+                                                                 do printfn "-----------------------------------------------------"
+                                                                 true   //tryFind nalezne true, takze cyklus konci  
+                                      | PotentiallyNotCorrect -> do printfn "Potencionální chyba může být v intervalu LT-%s-%s, vzorek byl uložen jako %s." (string low) (string high) fileName
+                                                                 do saveImage image fileName
+                                                                 false      
+                                  result
                               tryWith myFunction (fun x -> ()) (fun ex -> failwith) |> deconstructor4 
                              
                     ) |> ignore  //List.tryFind vraci jednu nalezenou hodnotu - item (tady int) - pro kterou je podminka true, v tomhle hacku ji ale nepotrebujeme

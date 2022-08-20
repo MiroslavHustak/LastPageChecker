@@ -86,26 +86,20 @@ let bitmapCreator (path: string) = //nevydedukoval...
                                                               myRecord                                                         
                                                   ) 
                          )
-   
-       //Nelze tasks, bo je to vse k jednomu objektu
-        let auxR = auxRGB 'r' 18uy 75uy |> Array.concat
-        let auxG = auxRGB 'g' 18uy 75uy |> Array.concat
-        let auxB = auxRGB 'b' 18uy 75uy |> Array.concat
-
-        let concatAux = Array.append auxR auxG |> Array.append auxB
-       
-        let result = concatAux
-                     |> Array.forall (fun item -> item.itemBool = true) 
-    
-        let counter = concatAux
-                      |> Array.map (fun item -> item.myInt)
-                      |> Array.fold (+) 0
-
-        let counter_0 = concatAux
-                        |> Array.map (fun item -> item.myInt_0)
-                        |> Array.fold (+) 0
 
         let everythingIsCorrect = 
+            let auxR = auxRGB 'r' 18uy 75uy |> Array.concat //Nelze tasks, bo je to vse k jednomu objektu
+            let auxG = auxRGB 'g' 18uy 75uy |> Array.concat //Nelze tasks, bo je to vse k jednomu objektu
+            let auxB = auxRGB 'b' 18uy 75uy |> Array.concat //Nelze tasks, bo je to vse k jednomu objektu
+            let concatAux = Array.append auxR auxG |> Array.append auxB                  
+            let result = concatAux
+                        |> Array.forall (fun item -> item.itemBool = true)                
+            let counter = concatAux
+                            |> Array.map (fun item -> item.myInt)
+                            |> Array.fold (+) 0
+            let counter_0 = concatAux
+                            |> Array.map (fun item -> item.myInt_0)
+                            |> Array.fold (+) 0
             match result with
             | false -> 
                      let formula = 0.7 * float (3 * croppedImage.Height * croppedImage.Width - counter_0)
