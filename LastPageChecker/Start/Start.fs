@@ -5,7 +5,6 @@ open System.IO
 
 open Errors
 open Helpers
-open Settings
 open Helpers.Process
 open GettingInputValuesEP
 open Settings.MySettings
@@ -39,7 +38,7 @@ module Start =
             do Directory.Delete(rc.path, true) 
             do Directory.CreateDirectory(rc.path) |> ignore 
             let sourceDir = @"c:\Users\User\source\repos\LastPageChecker\LastPageChecker\";
-            let backupDir = @"e:\E\Mirek po osme hodine a o vikendech\Kontroly skenu\zadni strany - kontrola\";
+            let backupDir = rc.path // @"e:\E\Mirek po osme hodine a o vikendech\Kontroly skenu\zadni strany - kontrola\";
             let fileName = "Graphicloads-Food-Drink-Teapot-1.jpg"       
             do File.Copy(Path.Combine(sourceDir, fileName), Path.Combine(backupDir, fileName), true) 
 

@@ -6,6 +6,7 @@ open System.Drawing.Imaging
 
 open Errors
 open Records
+open Settings.MySettings
 open DiscriminatedUnions
 open ROP_Functions.MyFunctions
 
@@ -158,8 +159,11 @@ let saveImage (image: Bitmap) (fileName: string) =
         let myEncoderParameter = new EncoderParameter(myEncoder, 50L) //50% kvalita 
                                  |> Option.ofObj 
                                  |> optionToEncoder "new EncoderParameter()" myEncoder
-        myEncoderParameters.Param[0] <- myEncoderParameter    
-        let path = @$"c:\Users\Martina\Kontroly skenu Litomerice\zadni strany - kontrola\{fileName}.jpg"
+        myEncoderParameters.Param[0] <- myEncoderParameter   
+        let path = sprintf"%s%s%s" 
+                   <| rc.path
+                   <| fileName 
+                   <| ".jpg" //@$"c:\Users\Martina\Kontroly skenu Litomerice\zadni strany - kontrola\{fileName}.jpg"
         image.Save(path, myImageCodecInfo, myEncoderParameters)      
     
     let ropResults = tryWith myFunction (fun x -> image.Dispose()) (fun ex -> failwith)

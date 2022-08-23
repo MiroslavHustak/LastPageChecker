@@ -21,7 +21,7 @@ module ReadingDataFromExcelEP =
                                    let finalMap = Map.add (string rows.[i].A) (int rows.[i].P) acc
                                    loop <| tail <| finalMap <| i + 1                                                                         
                                result   
-            loop listRange Map.empty 0           
+            loop <| listRange <| Map.empty <| 0           
         myMap 
         
 
