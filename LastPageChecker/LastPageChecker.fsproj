@@ -24,8 +24,8 @@
     <Compile Include="Auxiliaries\Helpers.fs" />
     <Compile Include="Auxiliaries\ColorRecogniser.fs" />
     <Compile Include="Auxiliaries\ClosingFunctions.fs" />
-    <Compile Include="MainFunctions\ReadingDataFromExcel.fs" />
-    <Compile Include="MainFunctions\GettingInputValues.fs" />
+    <Compile Include="MainFunctions\ReadingDataFromExcelEP.fs" />
+    <Compile Include="MainFunctions\GettingInputValuesEP.fs" />
     <Compile Include="MainFunctions\CheckingLastPageColor.fs" />
     <Compile Include="Start\Start.fs" />
   </ItemGroup>
@@ -33,6 +33,7 @@
   <ItemGroup>
     <PackageReference Include="ExcelDataReader" Version="3.7.0-develop00310" />
     <PackageReference Include="ExcelDataReader.DataSet" Version="3.7.0-develop00310" />
+    <PackageReference Include="ExcelProvider" Version="2.0.0" />
     <PackageReference Include="FSharp.Quotations.Evaluator" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta1" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0-preview.5.22301.12" />

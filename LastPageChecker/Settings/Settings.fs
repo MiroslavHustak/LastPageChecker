@@ -44,11 +44,27 @@ type CheckingLastPageColor_Settings =
            suffixAndExtLength = 10<1> //delka retezce _00001.jpg
         }  
 
-    module MySettings = 
     
+    module MySettings = 
+        
+        let rc = {
+                    Common_Settings.Default with 
+                        path = @"e:\E\Mirek po osme hodine a o vikendech\Kontroly skenu\zadni strany - kontrola\"  //pouze pro testovani u sebe na pocitaci                              
+                  }
+
+        let rcR = {
+                     ReadingDataFromExcel_Settings.Default with 
+                         path1 = $@"e:\E\Mirek po osme hodine a o vikendech\Kontroly skenu\mustr1.xls"  //pouze pro testovani u sebe na pocitaci                              
+                  }
+
+        let rcO = { 
+                     CheckingLastPageColor_Settings.Default with 
+                         path =  $@"e:\E\Mirek po osme hodine a o vikendech\Kontroly skenu\rozhazovani\" //pouze pro testovani u sebe na pocitaci
+                  }
+
      //ARCHIV LITOMERICE    
-     let rc =  Common_Settings.Default 
-     let rcR = ReadingDataFromExcel_Settings.Default
-     let rcO = CheckingLastPageColor_Settings.Default               
+     //let rc =  Common_Settings.Default 
+     //let rcR = ReadingDataFromExcel_Settings.Default
+     //let rcO = CheckingLastPageColor_Settings.Default               
      
 

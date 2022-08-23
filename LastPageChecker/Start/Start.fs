@@ -7,9 +7,9 @@ open Errors
 open Helpers
 open Settings
 open Helpers.Process
-open GettingInputValues
+open GettingInputValuesEP
 open Settings.MySettings
-open ReadingDataFromExcel
+open ReadingDataFromExcelEP
 open CheckingLastNameColor
 open ROP_Functions.MyFunctions
 
@@ -38,8 +38,8 @@ module Start =
         let myFunction x =         
             do Directory.Delete(rc.path, true) 
             do Directory.CreateDirectory(rc.path) |> ignore 
-            let sourceDir = @"C:\Users\Martina\source\repos\LastPageChecker\LastPageChecker\";
-            let backupDir = @"c:\Users\Martina\Kontroly skenu Litomerice\zadni strany - kontrola\";
+            let sourceDir = @"c:\Users\User\source\repos\LastPageChecker\LastPageChecker\";
+            let backupDir = @"e:\E\Mirek po osme hodine a o vikendech\Kontroly skenu\zadni strany - kontrola\";
             let fileName = "Graphicloads-Food-Drink-Teapot-1.jpg"       
             do File.Copy(Path.Combine(sourceDir, fileName), Path.Combine(backupDir, fileName), true) 
 
@@ -71,7 +71,8 @@ module Start =
             let ropResults = tryWith directoryPaths (fun x -> ()) (fun ex -> failwith)                                                     
             ropResults |> deconstructor2  
         
-        let readDataFromExcel = readDataFromExcel() //aby se to nevyhodnocovalo v cyklu
+        //let readDataFromExcel = readDataFromExcel() //aby se to nevyhodnocovalo v cyklu
+        let readDataFromExcelEP = readDataFromExcelEP() //aby se to nevyhodnocovalo v cyklu
 
         let lastPageChecker x = 
             directoryPaths 
@@ -90,7 +91,7 @@ module Start =
                                                        let high = Parsing.parseMe(lastDir.[9..13])
                                                            
                                                        //princip roboty programu
-                                                       (getExcelValues <| readDataFromExcel) |> compareColorInLastPage <| (createListInDirWithIncorrNoOfFiles low high) <| low <| high |> ignore 
+                                                       (getExcelValuesEP <| readDataFromExcelEP) |> compareColorInLastPage <| (createListInDirWithIncorrNoOfFilesEP low high) <| low <| high |> ignore 
                                               | false -> 
                                                        do printfn "Adresář [%s] nebyl kontrolován." lastDir
                                     )
