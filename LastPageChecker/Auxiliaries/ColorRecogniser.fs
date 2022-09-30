@@ -24,11 +24,11 @@ let private getEncoderInfo(mimeType: String): ImageCodecInfo =
     let encoders : ImageCodecInfo[] = ImageCodecInfo.GetImageEncoders() 
                                       |> Option.ofObj
                                       |> optionToArray "ImageCodecInfo"
-    let result = encoders |> Array.tryFind (fun item -> item.MimeType = mimeType)
-    match result with
-    | Some value -> value
-    | None       -> error17 "ImageCodecInfo"
-                    encoders |> Array.item 0 //whatever of ImageCodecInfo type                              
+    encoders |> Array.tryFind (fun item -> item.MimeType = mimeType)
+    |> function
+        | Some value -> value
+        | None       -> error17 "ImageCodecInfo"
+                        encoders |> Array.item 0 //whatever of ImageCodecInfo type                              
 
 //*********** main function 1 *********************
 let bitmapCreator (path: string) = //nevydedukoval...
