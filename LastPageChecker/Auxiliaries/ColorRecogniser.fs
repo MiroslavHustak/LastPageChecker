@@ -94,10 +94,10 @@ let bitmapCreator (path: string) = //nevydedukoval...
             let auxB = auxRGB 'b' 18uy 75uy |> Array.concat //Nelze tasks, bo je to vse k jednomu objektu
             let concatAux = Array.append auxR auxG |> Array.append auxB                  
             let result = concatAux
-                        |> Array.forall (fun item -> item.itemBool = true)                
+                         |> Array.forall (fun item -> item.itemBool = true)                
             let counter = concatAux
-                            |> Array.map (fun item -> item.myInt)
-                            |> Array.fold (+) 0
+                          |> Array.map (fun item -> item.myInt)
+                          |> Array.fold (+) 0
             let counter_0 = concatAux
                             |> Array.map (fun item -> item.myInt_0)
                             |> Array.fold (+) 0
