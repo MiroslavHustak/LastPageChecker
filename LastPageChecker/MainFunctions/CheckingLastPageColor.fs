@@ -25,19 +25,17 @@ let private myKey =
 let private getLists low high (myMap: Map<string, int>) = 
           
     let getOption i =        
-        let condition1 = 
+        let condition = 
             let aux = high - low + 1 
             (<) (i + 1) aux       
-        match condition1 with  
-        | true  ->                    
-                   let condition2 = myMap 
-                                    |> Map.tryFind (myKey <| low + 1 <| low + (i + 1)) //Map.tryFind je funkce
-                   match condition2 with                                                     //Vyraz musi byt zavisly na i
-                   | Some value -> Some (value, (i + 1))             //Tohle iteruje List.unfold getValue (-1)                                          
-                   | None       -> None    
+        match condition with  
+        | true  -> myMap |> Map.tryFind (myKey <| low + 1 <| low + (i + 1)) //viz IrfanViewOpener                                 
+                   |> function                                                     
+                      | Some value -> Some (value, (i + 1))                                                      
+                      | None       -> None    
         | false -> None     
     
-    let numberOfFilesList = List.unfold getOption (-1)               //unfold to ping from Some till bumping into None :-)   
+    let numberOfFilesList = List.unfold getOption (-1)     //viz IrfanViewOpener     
                                            
     let endFilesToOpenList = numberOfFilesList |> List.scan (+) 0 |> List.skip 1
                                                

@@ -113,8 +113,8 @@ let bitmapCreator (path: string) = //nevydedukoval...
                                            printfn "counter = %A" counter
                                            PotentiallyNotCorrect
                                 | false -> NotCorrect
-            | true  -> Correct //tj je same true    
-     
+            | true  -> Correct //tj je same true            
+        
         (* 
         let result = concatAux 
                      |> List.tryFind (fun item -> 
