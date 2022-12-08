@@ -97,12 +97,12 @@ let private compareColorOfLastScannedImages (listOfFiles: string list) ((numberO
                         
 //******* MAIN FUNCTION DEFINITION - OPENING IRFANVIEW WITH LAST FILES IN THEIR RESPECTIVE FOLDERS => vystupni funkce
 
-let (>>=) condition nextFunc =
+let private (>>=) condition nextFunc =
     match condition with
     | false -> 0
     | true  -> nextFunc() 
        
-type MyPatternBuilder = MyPatternBuilder with            
+type private MyPatternBuilder = MyPatternBuilder with            
     member _.Bind(condition, nextFunc) = (>>=) <| condition <| nextFunc 
     member _.Return x = x
 
