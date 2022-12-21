@@ -30,7 +30,7 @@ module Start =
             do ExcelKiller.ExcelKiller.SaveAndCloseExcel()  
                            
         let result = //tady je fn aji pro finally
-            let ropResults = tryWith excelKiller (fun x -> do KillSingleProcess(String.Empty, "ERROR006", true)) (fun ex -> failwith)                                                     
+            let ropResults = tryWith excelKiller (fun x -> do KillSingleProcess(String.Empty, "ERROR006", true)) (fun ex -> ())                                                     
             ropResults |> deconstructor1 error12  
         result
 
@@ -43,7 +43,7 @@ module Start =
             do File.Copy(Path.Combine(sourceDir, fileName), Path.Combine(backupDir, fileName), true) 
 
         let result = 
-           let ropResults = tryWith myFunction (fun x -> ()) (fun ex -> failwith)                                                     
+           let ropResults = tryWith myFunction (fun x -> ()) (fun ex -> ())                                                     
            ropResults |> deconstructor1 error17 
         result        
         
@@ -67,7 +67,7 @@ module Start =
                                |> optionToArray "Directory.GetDirectories()"  
         
         let directoryPaths = 
-            let ropResults = tryWith directoryPaths (fun x -> ()) (fun ex -> failwith)                                                     
+            let ropResults = tryWith directoryPaths (fun x -> ()) (fun ex -> ())                                                     
             ropResults |> deconstructor2  
         
         //let readDataFromExcel = readDataFromExcel() //aby se to nevyhodnocovalo v cyklu
@@ -96,7 +96,7 @@ module Start =
                                     )
         
         let lastPageChecker() = 
-           let ropResults = tryWith lastPageChecker (fun x -> ()) (fun ex -> failwith)                                                     
+           let ropResults = tryWith lastPageChecker (fun x -> ()) (fun ex -> ())                                                     
            ropResults |> deconstructor1 error17 
         lastPageChecker()
 

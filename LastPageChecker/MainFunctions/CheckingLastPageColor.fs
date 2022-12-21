@@ -91,7 +91,7 @@ let private compareColorOfLastScannedImages (listOfFiles: string list) ((numberO
                                                                  do saveImage image fileName
                                                                  false      
                                   result
-                              tryWith myFunction (fun x -> ()) (fun ex -> failwith) |> deconstructor4 
+                              tryWith myFunction (fun x -> ()) (fun ex -> ()) |> deconstructor4 
                              
                     ) |> ignore  //List.tryFind vraci jednu nalezenou hodnotu - item (tady int) - pro kterou je podminka true, v tomhle hacku ji ale nepotrebujeme
                         

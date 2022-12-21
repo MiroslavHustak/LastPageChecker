@@ -22,7 +22,7 @@ let getExcelValuesEP readFromExcel =
                    
     let rcInitVal = 
         let result = 
-            let ropResults() = tryWith myTaskFunction (fun x -> ()) (fun ex -> failwith) 
+            let ropResults() = tryWith myTaskFunction (fun x -> ()) (fun ex -> ()) 
             ropResults() |> deconstructor 
         result
            

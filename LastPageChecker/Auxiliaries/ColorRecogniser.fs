@@ -145,7 +145,7 @@ let bitmapCreator (path: string) = //nevydedukoval...
             | _                     -> croppedImage
         everythingIsCorrect, croppedImage    
     
-    let ropResults = tryWith myFunction (fun x -> ()) (fun ex -> failwith)  
+    let ropResults = tryWith myFunction (fun x -> ()) (fun ex -> ())  
     ropResults |> deconstructor3 
  
  //*********** main function 2 *********************
@@ -166,6 +166,6 @@ let saveImage (image: Bitmap) (fileName: string) =
                    <| ".jpg" //@$"c:\Users\Martina\Kontroly skenu Litomerice\zadni strany - kontrola\{fileName}.jpg"
         image.Save(path, myImageCodecInfo, myEncoderParameters)      
     
-    let ropResults = tryWith myFunction (fun x -> image.Dispose()) (fun ex -> failwith)
+    let ropResults = tryWith myFunction (fun x -> image.Dispose()) (fun ex -> ())
     ropResults |> deconstructor1 error17
        
