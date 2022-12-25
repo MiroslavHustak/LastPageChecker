@@ -49,10 +49,10 @@ let bitmapCreator (path: string) = //nevydedukoval...
         let croppedImage: Bitmap = cropImage source section  
 
         let auxRGB (x: char) low high = 
-            [| 0..croppedImage.Height - 1 |] 
-            |> Array.map (fun itemH ->
-                                     [| 0..croppedImage.Width - 1 |] 
-                                     |> Array.map (fun itemW ->  
+            [ 0..croppedImage.Height - 1 ] 
+            |> List.map (fun itemH ->
+                                     [ 0..croppedImage.Width - 1 ] 
+                                     |> List.map (fun itemW ->  
                                                               let now_color = croppedImage.GetPixel(itemW, itemH)
                                                       
                                                               let y = 
@@ -89,18 +89,18 @@ let bitmapCreator (path: string) = //nevydedukoval...
                          )
 
         let everythingIsCorrect = 
-            let auxR = auxRGB 'r' 18uy 75uy |> Array.concat //Nelze tasks, bo je to vse k jednomu objektu
-            let auxG = auxRGB 'g' 18uy 75uy |> Array.concat //Nelze tasks, bo je to vse k jednomu objektu
-            let auxB = auxRGB 'b' 18uy 75uy |> Array.concat //Nelze tasks, bo je to vse k jednomu objektu
-            let concatAux = Array.append auxR auxG |> Array.append auxB                  
+            let auxR = auxRGB 'r' 18uy 75uy |> List.concat //Nelze tasks, bo je to vse k jednomu objektu
+            let auxG = auxRGB 'g' 18uy 75uy |> List.concat //Nelze tasks, bo je to vse k jednomu objektu
+            let auxB = auxRGB 'b' 18uy 75uy |> List.concat //Nelze tasks, bo je to vse k jednomu objektu
+            let concatAux = List.append auxR auxG |> List.append auxB                  
             let result = concatAux
-                         |> Array.forall (fun item -> item.itemBool = true)                
+                         |> List.forall (fun item -> item.itemBool = true)                
             let counter = concatAux
-                          |> Array.map (fun item -> item.myInt)
-                          |> Array.fold (+) 0
+                          |> List.map (fun item -> item.myInt)
+                          |> List.fold (+) 0
             let counter_0 = concatAux
-                            |> Array.map (fun item -> item.myInt_0)
-                            |> Array.fold (+) 0
+                            |> List.map (fun item -> item.myInt_0)
+                            |> List.fold (+) 0
             match result with
             | false -> 
                      let formula = 0.7 * float (3 * croppedImage.Height * croppedImage.Width - counter_0)
