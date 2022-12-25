@@ -1,4 +1,4 @@
-﻿namespace FSharpIrfanViewOpener
+﻿namespace LastPageChecker
 
 open System
 open System.IO

@@ -1,10 +1,8 @@
-﻿namespace FSharpIrfanViewOpener
+﻿module ReadingDataFromExcelEP 
 
 open FSharp.Interop.Excel
 
 type DataTypesTest = ExcelFile<"e:\E\Mirek po osme hodine a o vikendech\Kontroly skenu\mustr1.xls", "List1">
-
-module ReadingDataFromExcelEP =
        
     let readDataFromExcelEP() =          
         
