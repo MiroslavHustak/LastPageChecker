@@ -29,10 +29,9 @@ let private getLists low high (myMap: Map<string, int>) =
             let aux = high - low + 1 
             (<) (i + 1) aux       
         match condition with  
-        | true  -> myMap |> Map.tryFind (myKey <| low + 1 <| low + (i + 1)) //viz IrfanViewOpener                                 
-                   |> function                                                     
-                      | Some value -> Some (value, (i + 1))                                                      
-                      | None       -> None    
+        | true  -> myMap 
+                   |> Map.tryFind (myKey <| low + 1 <| low + (i + 1)) //viz IrfanViewOpener                                 
+                   |> Option.bind (fun value -> Some (value, (i + 1)))  
         | false -> None     
     
     let numberOfFilesList = List.unfold getOption (-1)     //viz IrfanViewOpener     
