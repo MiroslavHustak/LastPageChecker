@@ -17,8 +17,8 @@ module Start =
     [<EntryPoint>]
     let main argv =
     
-        //******* 1) FIXING PROBLEM WITH ENCODING
-        do System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance)
+        //******* 1) FIXING PROBLEM WITH ENCODING       
+        do System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance)  //TODO try with
         
         Console.BackgroundColor <- ConsoleColor.Blue 
         Console.ForegroundColor <- ConsoleColor.White 

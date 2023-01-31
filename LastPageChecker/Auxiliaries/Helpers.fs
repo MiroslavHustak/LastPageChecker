@@ -22,7 +22,7 @@ open Errors
         //tento program pouziva nize uvedeny kod v separatni DLL F#
         let KillSingleProcess(name: string, errorNumber: string, consoleApp: bool): unit = 
            try          
-              let iterateThroughProcess =
+              let iterateThroughProcess =                
                   Process.GetProcessesByName(name)
                   //|> Option.ofObj        //zbytecne, nebot se dale ve funkci zachyti String.IsNullOrEmpty            
                   //|> optionToArrayToList

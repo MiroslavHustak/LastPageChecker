@@ -155,8 +155,8 @@ let saveImage (image: Bitmap) (fileName: string) =
     let myFunction x = 
         let myImageCodecInfo: ImageCodecInfo = getEncoderInfo("image/jpeg")
         let myEncoder: System.Drawing.Imaging.Encoder = System.Drawing.Imaging.Encoder.Quality 
-        let myEncoderParameters: EncoderParameters = new EncoderParameters(1) 
-        let myEncoderParameter = new EncoderParameter(myEncoder, 50L) //50% kvalita 
+        use myEncoderParameters: EncoderParameters = new EncoderParameters(1) 
+        use myEncoderParameter = new EncoderParameter(myEncoder, 50L) //50% kvalita 
                                  |> Option.ofObj 
                                  |> optionToEncoder "new EncoderParameter()" myEncoder
         myEncoderParameters.Param[0] <- myEncoderParameter   

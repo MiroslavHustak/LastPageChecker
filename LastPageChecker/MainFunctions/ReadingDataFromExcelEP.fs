@@ -8,7 +8,7 @@ type DataTypesTest = ExcelFile<"e:\E\Mirek po osme hodine a o vikendech\Kontroly
         
         let myMap: Map<string, int> = 
 
-            let file = new DataTypesTest()
+            let file = new DataTypesTest() //TODO zjistit, jak je to s exceptions, prip. pouzit try with
             let rows = file.Data |> Seq.toArray
             let epRowsCount = rows.Length     
             let listRange = [ 0 .. epRowsCount - 1 ]

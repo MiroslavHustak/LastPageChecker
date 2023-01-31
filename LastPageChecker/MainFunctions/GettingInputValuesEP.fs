@@ -45,7 +45,7 @@ let createListInDirWithIncorrNoOfFilesEP low high = // = adresar, ktery kontrolu
                  
     try   //vyzkouseni si .NET exceptions
         try                            
-            //2x staticka trida System.IO.Directory...., nebot nelze objekt dirInfo vyuzit 2x
+            //2x staticka trida System.IO.Directory...., nebot nelze objekt dirInfo vyuzit 2x            
             let mySeq = Directory.EnumerateFiles(dirWithIncorrNoOfFiles, "*.jpg")
                         |> Option.ofObj   
                         |> optionToEnumerable "Directory.EnumerateFiles()"     
