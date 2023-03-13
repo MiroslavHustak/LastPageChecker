@@ -13,5 +13,5 @@ let private finalNotice() =
 let closeApp x = //nahrazena rekurzivni funkci primo v modulu Start
     do printfn "Stiskni ENTER pro ukončení programu..."
     do pressEnterToContinue()
-    do KillSingleProcess(x , "ERROR009", true)//rc.imageViewer
+    do killSingleProcess(x , "ERROR009", true)//rc.imageViewer
     0//konec programu  

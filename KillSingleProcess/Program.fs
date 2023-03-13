@@ -5,8 +5,8 @@ open System.Diagnostics
 
 module Process =
 
-    //quli DLL pro potencialni pouziti v C# nazev je velkym + tuple
-    let KillSingleProcess(name: string, errorNumber: string, consoleApp: bool): unit = 
+    [<CompiledName "KillSingleProcess">]
+    let killSingleProcess(name: string, errorNumber: string, consoleApp: bool): unit = 
        try          
           let iterateThroughProcess =
               Process.GetProcessesByName(name) 

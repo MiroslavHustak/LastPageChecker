@@ -30,7 +30,7 @@ module Start =
             do ExcelKiller.ExcelKiller.SaveAndCloseExcel()  
                            
         let result = //tady je fn aji pro finally
-            let ropResults = tryWith excelKiller (fun x -> do KillSingleProcess(String.Empty, "ERROR006", true)) (fun ex -> ())                                                     
+            let ropResults = tryWith excelKiller (fun x -> do killSingleProcess(String.Empty, "ERROR006", true)) (fun ex -> ())                                                     
             ropResults |> deconstructor1 error12  
         result
 

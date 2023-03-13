@@ -9,7 +9,7 @@ open ROP_Functions.MyFunctions
 
 //******* DEFINITIONS OF FREQUENTLY CALLED FUNCTIONS       
 //function 1
-let private stringChoice x = MyString.GetString((rcO.numberOfScannedFileDigits - String.length (x |> string)), rcO.stringZero)
+let private stringChoice x = MyString.getString((rcO.numberOfScannedFileDigits - String.length (x |> string)), rcO.stringZero)
 
 //function 2
 let private myKey =  
