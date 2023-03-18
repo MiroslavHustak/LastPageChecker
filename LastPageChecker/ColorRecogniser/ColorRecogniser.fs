@@ -151,7 +151,7 @@ let saveImage (image: Bitmap) (fileName: string) =
         |> function
            | Some value -> value
            | None       -> error17 "ImageCodecInfo"
-                           encoders |> Array.item 0 //whatever of ImageCodecInfo type   
+                           encoders |> Array.head //whatever of ImageCodecInfo type   
 
     let myFunction x = 
         let myImageCodecInfo: ImageCodecInfo = getEncoderInfo("image/jpeg")
