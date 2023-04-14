@@ -32,37 +32,44 @@ let getExcelValuesEP readFromExcel =
 //impure, bo Directory.EnumerateFiles a printfn
 let createListInDirWithIncorrNoOfFilesEP low high = // = adresar, ktery kontroluji, tj. adresar s potencialnimi chybami, v teto app to jsou vsechny
     
-    let folderItem = sprintf "%s%s%s-%s%s" //u sprintf je typova kontrola  
-                     <| rcO.prefix
-                     <| stringChoice low 
-                     <| string low 
-                     <| stringChoice high 
-                     <| string high   
+    let folderItem = 
+        sprintf "%s%s%s-%s%s" //u sprintf je typova kontrola  
+        <| rcO.prefix
+        <| stringChoice low 
+        <| string low 
+        <| stringChoice high 
+        <| string high   
             
-    let dirWithIncorrNoOfFiles = sprintf "%s%s" 
-                                 <| string rcO.path
-                                 <| folderItem     
+    let dirWithIncorrNoOfFiles =
+        sprintf "%s%s" 
+        <| string rcO.path
+        <| folderItem     
                  
     try   //vyzkouseni si .NET exceptions
         try                            
             //2x staticka trida System.IO.Directory...., nebot nelze objekt dirInfo vyuzit 2x            
-            let mySeq = Directory.EnumerateFiles(dirWithIncorrNoOfFiles, "*.jpg")
-                        |> Option.ofObj   
-                        |> optionToEnumerable "Directory.EnumerateFiles()"     
+            let mySeq = 
+                Directory.EnumerateFiles(dirWithIncorrNoOfFiles, "*.jpg")
+                |> Option.ofObj   
+                |> optionToEnumerable "Directory.EnumerateFiles()"     
                         
             match Directory.Exists(dirWithIncorrNoOfFiles) with   
             | true  -> List.ofSeq(mySeq)                                                 
-            | false -> dirWithIncorrNoOfFiles |> error5   
+            | false -> 
+                       dirWithIncorrNoOfFiles |> error5   
                        List.Empty 
 
         finally
         () //zatim nepotrebne
     with  
-    | :? System.IO.DirectoryNotFoundException as ex -> ex.Message |> error3
+    | :? System.IO.DirectoryNotFoundException as ex -> 
+                                                       ex.Message |> error3
                                                        List.Empty                                                                                        
-    | :? System.IO.IOException as                ex -> ex.Message |> error4 
+    | :? System.IO.IOException as                ex -> 
+                                                       ex.Message |> error4 
                                                        List.Empty
-    | _ as                                       ex -> ex.Message |> error1 //System.Exception
+    | _ as                                       ex -> 
+                                                       ex.Message |> error1 //System.Exception
                                                        List.Empty           
                                 
     

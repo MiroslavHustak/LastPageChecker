@@ -14,7 +14,8 @@ open Errors
             let rec loop list acc auxStringToAdd =
                 match list with 
                 | []        -> acc
-                | _ :: tail -> let finalString = (+) acc auxStringToAdd
+                | _ :: tail -> 
+                               let finalString = (+) acc auxStringToAdd
                                loop tail finalString auxStringToAdd //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984
             loop listRange initialString stringToAdd //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984
      
@@ -34,9 +35,9 @@ open Errors
                               )
               ()                                            
            with  
-           | ex when (consoleApp = true)  -> do printfn "%s: %s" <| errorNumber <| string ex.Message
-                                             let result = Console.ReadKey()  
-                                             ()
+           | ex when (consoleApp = true)  -> 
+                                             do printfn "%s: %s" <| errorNumber <| string ex.Message
+                                             Console.ReadKey() |> ignore 
            |_  when (consoleApp = false)  -> ()
 
         let internal pressEnterToContinue() = //internal indicates that the entity can be accessed only from the same assembly            
@@ -64,7 +65,8 @@ open Errors
         let rec parseMe =
             function            
             | TryParserInt.Int i -> f i 
-            | notANumber         -> notANumber |> error66  
+            | notANumber         -> 
+                                    notANumber |> error66  
                                     f parseMe <| Console.ReadLine()
                                    
    module Parsing1 =
@@ -73,7 +75,8 @@ open Errors
         let rec parseMe1 = 
             function            
             | TryParserInt.Int i -> f i
-            | _                  -> do Console.Clear() |> ignore
+            | _                  -> 
+                                    do Console.Clear() |> ignore
                                     error7()  
                                     0 //whatever...                                            
    

@@ -19,19 +19,22 @@ let bitmapCreator (path: string) = //nevydedukoval...
     *)
 
     let cropImage (source: Bitmap) (section: Rectangle) : Bitmap =     
-        let bitmap = new Bitmap(section.Width, section.Height)
-                     |> Option.ofObj
-                     |> optionToBitmap "new Bitmap(section.Width, section.Height)"
-        use g = Graphics.FromImage(bitmap) 
-                |> Option.ofObj 
-                |> optionToGraphics "Graphics.FromImage(bitmap)" bitmap
+        let bitmap = 
+            new Bitmap(section.Width, section.Height)
+            |> Option.ofObj
+            |> optionToBitmap "new Bitmap(section.Width, section.Height)"
+        use g = 
+            Graphics.FromImage(bitmap) 
+            |> Option.ofObj 
+            |> optionToGraphics "Graphics.FromImage(bitmap)" bitmap
         do g.DrawImage(source, 0, 0, section, GraphicsUnit.Pixel) 
         bitmap
     
     let myFunction x = 
-        let source: Bitmap = new Bitmap(path) 
-                             |> Option.ofObj
-                             |> optionToBitmap "new Bitmap(path)"
+        let source: Bitmap = 
+            new Bitmap(path) 
+            |> Option.ofObj
+            |> optionToBitmap "new Bitmap(path)"
         let x = source.Width
         let y = source.Height
 
@@ -84,14 +87,16 @@ let bitmapCreator (path: string) = //nevydedukoval...
             let auxG = auxRGB 'g' 18uy 75uy |> List.concat //Nelze tasks, bo je to vse k jednomu objektu
             let auxB = auxRGB 'b' 18uy 75uy |> List.concat //Nelze tasks, bo je to vse k jednomu objektu
             let concatAux = List.append auxR auxG |> List.append auxB                  
-            let result = concatAux
-                         |> List.forall (fun item -> item.itemBool = true)                
-            let counter = concatAux
-                          |> List.map (fun item -> item.myInt)
-                          |> List.fold (+) 0
-            let counter_0 = concatAux
-                            |> List.map (fun item -> item.myInt_0)
-                            |> List.fold (+) 0
+            
+            let result = 
+                concatAux |> List.forall (fun item -> item.itemBool = true)       
+                                  
+            let counter = 
+                concatAux |> List.map (fun item -> item.myInt) |> List.fold (+) 0
+
+            let counter_0 =
+                concatAux |> List.map (fun item -> item.myInt_0) |> List.fold (+) 0
+            
             match result with
             | false -> 
                      let formula = 0.7 * float (3 * croppedImage.Height * croppedImage.Width - counter_0)
@@ -99,7 +104,8 @@ let bitmapCreator (path: string) = //nevydedukoval...
                      | true  -> Correct                 
                      | false -> 
                                 match abs (float counter - formula) < float (counter / 5) with
-                                | true  -> printfn "Informace pro následující potencionální chybu:" 
+                                | true  -> 
+                                           printfn "Informace pro následující potencionální chybu:" 
                                            printfn "formula = %A" formula
                                            printfn "counter = %A" counter
                                            PotentiallyNotCorrect
@@ -121,7 +127,8 @@ let bitmapCreator (path: string) = //nevydedukoval...
                             | true  -> true                                  
                             | false -> 
                                        match abs (float counter - formula) < float (counter / 10) with
-                                       | true  -> printfn "Informace pro následující potencionální chybu:" 
+                                       | true  -> 
+                                                  printfn "Informace pro následující potencionální chybu:" 
                                                   printfn "formula = %A" formula
                                                   printfn "counter = %A" counter
                                        | false -> ()
@@ -131,7 +138,8 @@ let bitmapCreator (path: string) = //nevydedukoval...
 
         let croppedImage = 
             match everythingIsCorrect with
-            | PotentiallyNotCorrect -> let section = new Rectangle(new Point(0, 0), new Size(x, y))
+            | PotentiallyNotCorrect -> 
+                                       let section = new Rectangle(new Point(0, 0), new Size(x, y))
                                        cropImage source section 
             | _                     -> croppedImage
         everythingIsCorrect, croppedImage    
@@ -144,27 +152,34 @@ let bitmapCreator (path: string) = //nevydedukoval...
 let saveImage (image: Bitmap) (fileName: string) = 
 
     let getEncoderInfo(mimeType: String): ImageCodecInfo =
-        let encoders : ImageCodecInfo[] = ImageCodecInfo.GetImageEncoders() 
-                                          |> Option.ofObj
-                                          |> optionToArray "ImageCodecInfo"
+        let encoders : ImageCodecInfo[] = 
+            ImageCodecInfo.GetImageEncoders() 
+            |> Option.ofObj
+            |> optionToArray "ImageCodecInfo"
+
         encoders |> Array.tryFind (fun item -> item.MimeType = mimeType)
         |> function
            | Some value -> value
-           | None       -> error17 "ImageCodecInfo"
+           | None       -> 
+                           error17 "ImageCodecInfo"
                            encoders |> Array.head //whatever of ImageCodecInfo type   
 
     let myFunction x = 
         let myImageCodecInfo: ImageCodecInfo = getEncoderInfo("image/jpeg")
         let myEncoder: System.Drawing.Imaging.Encoder = System.Drawing.Imaging.Encoder.Quality 
         use myEncoderParameters: EncoderParameters = new EncoderParameters(1) 
-        use myEncoderParameter = new EncoderParameter(myEncoder, 50L) //50% kvalita 
-                                 |> Option.ofObj 
-                                 |> optionToEncoder "new EncoderParameter()" myEncoder
+        use myEncoderParameter =
+            new EncoderParameter(myEncoder, 50L) //50% kvalita 
+            |> Option.ofObj 
+            |> optionToEncoder "new EncoderParameter()" myEncoder
+
         myEncoderParameters.Param[0] <- myEncoderParameter   
-        let path = sprintf"%s%s%s" 
-                   <| rc.path
-                   <| fileName 
-                   <| ".jpg" //@$"c:\Users\Martina\Kontroly skenu Litomerice\zadni strany - kontrola\{fileName}.jpg"
+        let path = 
+            sprintf"%s%s%s" 
+            <| rc.path
+            <| fileName 
+            <| ".jpg" //@$"c:\Users\Martina\Kontroly skenu Litomerice\zadni strany - kontrola\{fileName}.jpg"
+        
         image.Save(path, myImageCodecInfo, myEncoderParameters)      
     
     let ropResults = tryWith myFunction (fun x -> image.Dispose()) (fun ex -> ())

@@ -9,14 +9,13 @@ open ROP_Functions.MyFunctions
 
 //******* DEFINITIONS OF FREQUENTLY CALLED FUNCTIONS       
 //function 1
-let private stringChoice x = MyString.getString((rcO.numberOfScannedFileDigits - String.length (x |> string)), rcO.stringZero)
+let private stringChoice x = 
+    MyString.getString((rcO.numberOfScannedFileDigits - String.length (x |> string)), rcO.stringZero)
 
 //function 2
 let private myKey =  
-    let key x y = sprintf "%s%s%s" 
-                  <| rcO.prefix
-                  <| string x 
-                  <| string y  
+    let key x y = 
+        sprintf "%s%s%s" <| rcO.prefix <| string x <| string y   
     stringChoice >> key 
 
 //******* DEFINITIONS OF TWO SUBMAIN FUNCTIONS
@@ -58,34 +57,36 @@ let private compareColorOfLastScannedImages (listOfFiles: string list) ((numberO
     |> List.tryFind (fun item ->           
                               let pathWithArgument() =  //legacy name
                                   match (item - 1) >= listOfFilesLength with
-                                  | true -> 
-                                          let path = string <| listOfFiles.Item (listOfFilesLength - 1) 
-                                          path 
+                                  | true  -> 
+                                           let path = string <| listOfFiles.Item (listOfFilesLength - 1) 
+                                           path 
                                   | false -> 
-                                          let path = string <| listOfFiles.Item (item - 1)
-                                          path      
+                                           let path = string <| listOfFiles.Item (item - 1)
+                                           path      
                                           
                               let myFunction x = 
                                  
                                   let ((compare: ResultStatus), (image: System.Drawing.Bitmap)) = 
-                                     let pathWithArgument = pathWithArgument()  //legacy name
-                                     bitmapCreator pathWithArgument 
-                                  let image = image
-                                              |> Option.ofObj                                          
-                                              |> optionToBitmap "bitmapCreator"                                  
-                                  
+                                      let pathWithArgument = pathWithArgument()  //legacy name
+                                      bitmapCreator pathWithArgument 
+                                 
+                                  let image = image|> Option.ofObj |> optionToBitmap "bitmapCreator" 
+
                                   let result = 
                                       let fileName = sprintf "%s-%s page %i" (string low) (string high) item
                                       
                                       //napsani do konzole vysledky kontroly barvy  
                                       match compare with
-                                      | Correct               -> do saveImage image fileName 
+                                      | Correct               -> 
+                                                                 do saveImage image fileName 
                                                                  false //tryFind nalezne false, takze pokracuje dale
-                                      | NotCorrect            -> do printfn "-----------------------------------------------------"
+                                      | NotCorrect            -> 
+                                                                 do printfn "-----------------------------------------------------"
                                                                  do printfn "V intervalu %s%s-%s je chyba!!!" CheckingLastPageColor_Settings.Default.prefix (string low) (string high) 
                                                                  do printfn "-----------------------------------------------------"
                                                                  true   //tryFind nalezne true, takze cyklus konci  
-                                      | PotentiallyNotCorrect -> do printfn "Potencionální chyba může být v intervalu LT-%s-%s, vzorek byl uložen jako %s." (string low) (string high) fileName
+                                      | PotentiallyNotCorrect -> 
+                                                                 do printfn "Potencionální chyba může být v intervalu LT-%s-%s, vzorek byl uložen jako %s." (string low) (string high) fileName
                                                                  do saveImage image fileName
                                                                  false      
                                   result
@@ -113,10 +114,10 @@ let compareColorInLastPage myMap createdList low high =
             let! _ =  myMap |> Map.containsKey (myKey low low) //argumenty fce su v takovem poradi: Map.containsKey key table, takze bez |> bude Map.containsKey (myKey low low) myMap          
                        
             do compareColorOfLastScannedImages 
-               <| createdList 
-               <| (getLists <| low <| high <| myMap)                   
-               <| low
-               <| high            
+            <| createdList 
+            <| (getLists <| low <| high <| myMap)                   
+            <| low
+            <| high            
                                                      
             return 0
          }

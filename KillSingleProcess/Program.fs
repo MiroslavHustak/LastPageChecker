@@ -20,6 +20,5 @@ module Process =
        with  
        | ex when (consoleApp = true)  -> 
                                          do printfn "%s: %s" <| errorNumber <| string ex.Message
-                                         let result = Console.ReadKey()  
-                                         ()
+                                         Console.ReadKey() |> ignore
        | _  when (consoleApp = false) -> ()
