@@ -44,43 +44,45 @@ let bitmapCreator (path: string) = //nevydedukoval...
 
         let auxRGB (x: char) low high = 
             [ 0..croppedImage.Height - 1 ] 
-            |> List.map (fun itemH ->
-                                     [ 0..croppedImage.Width - 1 ] 
-                                     |> List.map (fun itemW ->  
-                                                              let now_color = croppedImage.GetPixel(itemW, itemH)
+            |> List.map 
+                (fun itemH ->
+                            [ 0..croppedImage.Width - 1 ] 
+                            |> List.map 
+                                (fun itemW ->  
+                                            let now_color = croppedImage.GetPixel(itemW, itemH)
                                                       
-                                                              let y = 
-                                                                  match x with 
-                                                                  | 'r' -> now_color.R
-                                                                  | 'g' -> now_color.G
-                                                                  | 'b' -> now_color.B  
-                                                                  |  _  -> 0uy
+                                            let y = 
+                                                match x with 
+                                                | 'r' -> now_color.R
+                                                | 'g' -> now_color.G
+                                                | 'b' -> now_color.B  
+                                                |  _  -> 0uy
                                                     
-                                                              let myRecord = 
-                                                                  match y = 0uy with 
-                                                                  | false -> 
-                                                                           match (y >= low) && (y <= high) with
-                                                                           | true  ->
-                                                                                    {
-                                                                                        itemBool = true
-                                                                                        myInt = 1
-                                                                                        myInt_0 = 0
-                                                                                    }                                                                                
-                                                                           | false -> 
-                                                                                    {
-                                                                                        itemBool = false
-                                                                                        myInt = 0
-                                                                                        myInt_0 = 0
-                                                                                    }              
-                                                                  | true  ->
-                                                                           {
-                                                                               itemBool = true
-                                                                               myInt = 0
-                                                                               myInt_0 = 1
-                                                                           }         
-                                                              myRecord                                                         
-                                                  ) 
-                         )
+                                            let myRecord = 
+                                                match y = 0uy with 
+                                                | false -> 
+                                                         match (y >= low) && (y <= high) with
+                                                         | true   ->
+                                                                   {
+                                                                       itemBool = true
+                                                                       myInt = 1
+                                                                       myInt_0 = 0
+                                                                   }                                                                                
+                                                          | false -> 
+                                                                   {
+                                                                       itemBool = false
+                                                                       myInt = 0
+                                                                       myInt_0 = 0
+                                                                   }              
+                                                | true  ->
+                                                         {
+                                                             itemBool = true
+                                                             myInt = 0
+                                                             myInt_0 = 1
+                                                         }         
+                                            myRecord                                                         
+                                ) 
+               )
 
         let everythingIsCorrect = 
             let auxR = auxRGB 'r' 18uy 75uy |> List.concat //Nelze tasks, bo je to vse k jednomu objektu
@@ -105,43 +107,50 @@ let bitmapCreator (path: string) = //nevydedukoval...
                      | false -> 
                                 match abs (float counter - formula) < float (counter / 5) with
                                 | true  -> 
-                                           printfn "Informace pro následující potencionální chybu:" 
-                                           printfn "formula = %A" formula
-                                           printfn "counter = %A" counter
-                                           PotentiallyNotCorrect
-                                | false -> NotCorrect
-            | true  -> Correct //tj je same true            
+                                         printfn "Informace pro následující potencionální chybu:" 
+                                         printfn "formula = %A" formula
+                                         printfn "counter = %A" counter
+                                         PotentiallyNotCorrect
+                                | false ->
+                                         NotCorrect
+            | true  -> 
+                     Correct //tj je same true            
         
         (* 
-        let result = concatAux 
-                     |> List.tryFind (fun item -> 
-                                                let itemBool, myInt, myInt_0 = item
-                                                itemBool = false 
-                                     )  //pokud polozka s takovou podminkou existuje, vraci se prislusna polozka (je jedno, co tam je, ale je to hodnota Some), jinak vraci None 
+        let result =
+            concatAux 
+            |> List.tryFind 
+                (fun item -> 
+                           let itemBool, myInt, myInt_0 = item
+                           itemBool = false 
+                )  //pokud polozka s takovou podminkou existuje, vraci se prislusna polozka (je jedno, co tam je, ale je to hodnota Some), jinak vraci None 
         
         let everythingIsCorrect = 
             match result with
             | Some value -> 
-                            let formula = 0.7 * float (3 * croppedImage.Height * croppedImage.Width - counter_0)
-                            match float counter > formula with 
-                            | true  -> true                                  
-                            | false -> 
-                                       match abs (float counter - formula) < float (counter / 10) with
-                                       | true  -> 
-                                                  printfn "Informace pro následující potencionální chybu:" 
-                                                  printfn "formula = %A" formula
-                                                  printfn "counter = %A" counter
-                                       | false -> ()
-                                       false                       
-            | None       -> true //tj je same true    
+                          let formula = 0.7 * float (3 * croppedImage.Height * croppedImage.Width - counter_0)
+                          match float counter > formula with 
+                          | true  -> 
+                                   true                                  
+                          | false -> 
+                                   match abs (float counter - formula) < float (counter / 10) with
+                                   | true  -> 
+                                            printfn "Informace pro následující potencionální chybu:" 
+                                            printfn "formula = %A" formula
+                                            printfn "counter = %A" counter
+                                   | false -> ()
+                                   false                       
+            | None       -> 
+                          true //tj je same true    
         *)
 
         let croppedImage = 
             match everythingIsCorrect with
             | PotentiallyNotCorrect -> 
-                                       let section = new Rectangle(new Point(0, 0), new Size(x, y))
-                                       cropImage source section 
-            | _                     -> croppedImage
+                                     let section = new Rectangle(new Point(0, 0), new Size(x, y))
+                                     cropImage source section 
+            | _                     ->
+                                     croppedImage
         everythingIsCorrect, croppedImage    
     
     let ropResults = tryWith myFunction (fun x -> ()) (fun ex -> ())  
@@ -159,10 +168,11 @@ let saveImage (image: Bitmap) (fileName: string) =
 
         encoders |> Array.tryFind (fun item -> item.MimeType = mimeType)
         |> function
-           | Some value -> value
+           | Some value -> 
+                         value
            | None       -> 
-                           error17 "ImageCodecInfo"
-                           encoders |> Array.head //whatever of ImageCodecInfo type   
+                         error17 "ImageCodecInfo"
+                         encoders |> Array.head //whatever of ImageCodecInfo type   
 
     let myFunction x = 
         let myImageCodecInfo: ImageCodecInfo = getEncoderInfo("image/jpeg")
@@ -174,6 +184,7 @@ let saveImage (image: Bitmap) (fileName: string) =
             |> optionToEncoder "new EncoderParameter()" myEncoder
 
         myEncoderParameters.Param[0] <- myEncoderParameter   
+        
         let path = 
             sprintf"%s%s%s" 
             <| rc.path

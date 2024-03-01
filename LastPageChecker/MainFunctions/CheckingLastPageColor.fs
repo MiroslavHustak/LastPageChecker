@@ -27,10 +27,12 @@ let private getLists low high (myMap: Map<string, int>) =
         let aux = high - low + 1 
         (<) (i + 1) aux       
         |> function  
-            | true  -> myMap 
-                       |> Map.tryFind (myKey <| low + 1 <| low + (i + 1)) //viz IrfanViewOpener                                 
-                       |> Option.bind (fun value -> Some (value, (i + 1)))  
-            | false -> None     
+            | true  -> 
+                     myMap 
+                     |> Map.tryFind (myKey <| low + 1 <| low + (i + 1)) //viz IrfanViewOpener                                 
+                     |> Option.bind (fun value -> Some (value, (i + 1)))  
+            | false ->
+                     None     
     
     let numberOfFilesList = List.unfold getOption (-1)     //viz IrfanViewOpener     
                                            
@@ -47,52 +49,55 @@ let private compareColorOfLastScannedImages (listOfFiles: string list) ((numberO
      Breaking from a cycle
      For example, tryFind function returns the first value from a sequence for which a given predicate returns true, which lets you write something like this:
 
-     seq { 0 .. 100 } |> Seq.tryFind (fun i ->
-                                             printfn "%d" i
-                                             i = 66 //condition
-                                      )
+     seq { 0 .. 100 } 
+     |> Seq.tryFind 
+         (fun i ->
+                printfn "%d" i
+                i = 66 //condition
+         )
     *)
     
     endFilesToOpenList 
-    |> List.tryFind (fun item ->           
-                              let pathWithArgument() =  //legacy name
-                                  match (item - 1) >= listOfFilesLength with
-                                  | true  -> 
-                                           let path = string <| listOfFiles.Item (listOfFilesLength - 1) 
-                                           path 
-                                  | false -> 
-                                           let path = string <| listOfFiles.Item (item - 1)
-                                           path      
+    |> List.tryFind
+        (fun item ->           
+                   let pathWithArgument() =  //legacy name
+                       match (item - 1) >= listOfFilesLength with
+                       | true  -> 
+                                let path = string <| listOfFiles.Item (listOfFilesLength - 1) 
+                                path 
+                       | false -> 
+                                let path = string <| listOfFiles.Item (item - 1)
+                                path      
                                           
-                              let myFunction x = 
+                   let myFunction x = 
                                  
-                                  let ((compare: ResultStatus), (image: System.Drawing.Bitmap)) = 
-                                      let pathWithArgument = pathWithArgument()  //legacy name
-                                      bitmapCreator pathWithArgument 
+                       let ((compare: ResultStatus), (image: System.Drawing.Bitmap)) = 
+                           let pathWithArgument = pathWithArgument()  //legacy name
+                           bitmapCreator pathWithArgument 
                                  
-                                  let image = image|> Option.ofObj |> optionToBitmap "bitmapCreator" 
+                       let image = image|> Option.ofObj |> optionToBitmap "bitmapCreator" 
 
-                                  let result = 
-                                      let fileName = sprintf "%s-%s page %i" (string low) (string high) item
+                       let result = 
+                           let fileName = sprintf "%s-%s page %i" (string low) (string high) item
                                       
-                                      //napsani do konzole vysledky kontroly barvy  
-                                      match compare with
-                                      | Correct               -> 
-                                                                 do saveImage image fileName 
-                                                                 false //tryFind nalezne false, takze pokracuje dale
-                                      | NotCorrect            -> 
-                                                                 do printfn "-----------------------------------------------------"
-                                                                 do printfn "V intervalu %s%s-%s je chyba!!!" CheckingLastPageColor_Settings.Default.prefix (string low) (string high) 
-                                                                 do printfn "-----------------------------------------------------"
-                                                                 true   //tryFind nalezne true, takze cyklus konci  
-                                      | PotentiallyNotCorrect -> 
-                                                                 do printfn "Potencionální chyba může být v intervalu LT-%s-%s, vzorek byl uložen jako %s." (string low) (string high) fileName
-                                                                 do saveImage image fileName
-                                                                 false      
-                                  result
-                              tryWith myFunction (fun x -> ()) (fun ex -> ()) |> deconstructor4 
+                           //napsani do konzole vysledky kontroly barvy  
+                           match compare with
+                           | Correct               -> 
+                                                    do saveImage image fileName 
+                                                    false //tryFind nalezne false, takze pokracuje dale
+                           | NotCorrect            -> 
+                                                    do printfn "-----------------------------------------------------"
+                                                    do printfn "V intervalu %s%s-%s je chyba!!!" CheckingLastPageColor_Settings.Default.prefix (string low) (string high) 
+                                                    do printfn "-----------------------------------------------------"
+                                                    true   //tryFind nalezne true, takze cyklus konci  
+                           | PotentiallyNotCorrect -> 
+                                                    do printfn "Potencionální chyba může být v intervalu LT-%s-%s, vzorek byl uložen jako %s." (string low) (string high) fileName
+                                                    do saveImage image fileName
+                                                    false      
+                       result
+                   tryWith myFunction (fun x -> ()) (fun ex -> ()) |> deconstructor4 
                              
-                    ) |> ignore  //List.tryFind vraci jednu nalezenou hodnotu - item (tady int) - pro kterou je podminka true, v tomhle hacku ji ale nepotrebujeme
+        ) |> ignore  //List.tryFind vraci jednu nalezenou hodnotu - item (tady int) - pro kterou je podminka true, v tomhle hacku ji ale nepotrebujeme
                         
 //******* MAIN FUNCTION DEFINITION - OPENING IRFANVIEW WITH LAST FILES IN THEIR RESPECTIVE FOLDERS => vystupni funkce
 

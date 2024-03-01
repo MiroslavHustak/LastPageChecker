@@ -62,9 +62,10 @@ module Start =
         processStart()
         printfn("Starting processing ...")
           
-        let directoryPaths x = Directory.GetDirectories(rcO.path, rcO.prefix + "*", SearchOption.TopDirectoryOnly) 
-                               |> Option.ofObj
-                               |> optionToArray "Directory.GetDirectories()"  
+        let directoryPaths x = 
+            Directory.GetDirectories(rcO.path, rcO.prefix + "*", SearchOption.TopDirectoryOnly) 
+            |> Option.ofObj
+            |> optionToArray "Directory.GetDirectories()"  
         
         let directoryPaths = 
             let ropResults = tryWith directoryPaths (fun x -> ()) (fun ex -> ())                                                     
@@ -76,9 +77,10 @@ module Start =
         let lastPageChecker x = 
             directoryPaths 
             |> Array.Parallel.iter (fun item -> 
-                                              let lastDir = (new DirectoryInfo(item)).Name  //c:\Users\Martina\Kontroly skenu Litomerice\rozhazovani\LT-21731-21744\
-                                                            |> Option.ofObj 
-                                                            |> optionToString1 "new DirectoryInfo()"
+                                              let lastDir =
+                                                  (new DirectoryInfo(item)).Name  //c:\Users\Martina\Kontroly skenu Litomerice\rozhazovani\LT-21731-21744\
+                                                  |> Option.ofObj 
+                                                  |> optionToString1 "new DirectoryInfo()"
                                               match lastDir.Length = 14 with //14 je delka typoveho retezce LT-21731-21744
                                               | true  -> 
                                                        //let lastDir = (new DirectoryInfo(item)).Name 

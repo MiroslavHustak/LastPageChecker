@@ -23,10 +23,11 @@ open DiscriminatedUnions
         // dalsi muj kod pro moje pokusy
         let deconstructor  =  //FOR TESTING PURPOSES ONLY (testing railway oriented programming features)
             function
-            | Success x  -> x                                                       
+            | Success x  ->
+                          x                                                       
             | Failure ex -> 
-                            ex |> error2
-                            Map.empty    
+                          ex |> error2
+                          Map.empty    
                             
         let deconstructor1 error =  //FOR TESTING PURPOSES ONLY (testing railway oriented programming features)
             function
@@ -35,34 +36,37 @@ open DiscriminatedUnions
 
         let deconstructor2  =  //FOR TESTING PURPOSES ONLY (testing railway oriented programming features)
             function
-            | Success x  -> x                                                       
+            | Success x  ->
+                          x                                                       
             | Failure ex -> 
-                            ex |> error2
-                            Array.empty    
+                          ex |> error2
+                          Array.empty    
         
         let deconstructor3  =  //FOR TESTING PURPOSES ONLY (testing railway oriented programming features)
             function
-            | Success x  -> x                                                       
+            | Success x  ->
+                          x                                                       
             | Failure ex ->
-                            ex |> error2
-                            NotCorrect, new Bitmap(0, 0) //whatever of this particular type 
+                          ex |> error2
+                          NotCorrect, new Bitmap(0, 0) //whatever of this particular type 
         
         let deconstructor4  =  //FOR TESTING PURPOSES ONLY (testing railway oriented programming features)
             function
-            | Success x  -> x                                                       
+            | Success x  -> 
+                          x                                                       
             | Failure ex -> 
-                            ex |> error2
-                            false  //whatever of this particular type 
+                          ex |> error2
+                          false  //whatever of this particular type 
 
         let optionToString param =            
             match param with 
             | Some value ->
-                            match value with                             
-                            | "" -> "0"
-                            | _  -> value               
+                          match value with                             
+                          | "" -> "0"
+                          | _  -> value               
             | None       -> 
-                            do error14()                             
-                            String.Empty
+                          do error14()                             
+                          String.Empty
         
         let optionToString1 str x = 
             match x with 
@@ -73,38 +77,43 @@ open DiscriminatedUnions
         
         let optionToArray str (x: 'a[] option) = 
                    match x with 
-                   | Some value -> value 
+                   | Some value -> 
+                                 value 
                    | None       -> 
-                                   do error17 str
-                                   Array.empty       
+                                 do error17 str
+                                 Array.empty       
 
         let optionToEnumerable str (x: Collections.Generic.IEnumerable<string> option) = 
             match x with 
-            | Some value -> value
+            | Some value -> 
+                          value
             | None       -> 
-                            do error17 str  
-                            Seq.empty
+                          do error17 str  
+                          Seq.empty
         
         let optionToBitmap str x = 
             match x with 
-            | Some value -> value 
+            | Some value -> 
+                          value 
             | None       -> 
-                            do error17 str
-                            new Bitmap(0, 0) //whatever of this particular type     
+                          do error17 str
+                          new Bitmap(0, 0) //whatever of this particular type     
                             
         let optionToGraphics str bitmap x = 
             match x with 
-            | Some value -> value 
+            | Some value -> 
+                          value 
             | None       -> 
-                            do error17 str   
-                            Graphics.FromImage(bitmap) //whatever of this particular type    
+                          do error17 str   
+                          Graphics.FromImage(bitmap) //whatever of this particular type    
         
         let optionToEncoder str enc x = 
             match x with 
-            | Some value -> value 
+            | Some value ->
+                          value 
             | None       -> 
-                            do error17 str
-                            new EncoderParameter(enc, 0L) //whatever of this particular type                         
+                          do error17 str
+                          new EncoderParameter(enc, 0L) //whatever of this particular type                         
                                  
         (*
         let optionToEnumerable str (x: seq<'a> option) = 

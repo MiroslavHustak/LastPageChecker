@@ -14,12 +14,13 @@ type DataTypesTest = ExcelFile<"e:\E\Mirek po osme hodine a o vikendech\Kontroly
             let listRange = [ 0 .. epRowsCount - 1 ]
             let rec loop list acc i =  
                 match list with 
-                | []        -> acc
+                | []        ->
+                             acc
                 | _ :: tail -> 
-                               let result =
-                                   let finalMap = Map.add (string rows.[i].A) (int rows.[i].P) acc
-                                   loop tail finalMap (i + 1)    //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984                                                                     
-                               result   
+                             let result =
+                                 let finalMap = Map.add (string rows.[i].A) (int rows.[i].P) acc
+                                 loop tail finalMap (i + 1)    //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984                                                                     
+                             result   
             loop listRange Map.empty 0     //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984      
         myMap 
         

@@ -54,23 +54,24 @@ let createListInDirWithIncorrNoOfFilesEP low high = // = adresar, ktery kontrolu
                 |> optionToEnumerable "Directory.EnumerateFiles()"     
                         
             match Directory.Exists(dirWithIncorrNoOfFiles) with   
-            | true  -> List.ofSeq(mySeq)                                                 
+            | true  ->
+                     List.ofSeq(mySeq)                                                 
             | false -> 
-                       dirWithIncorrNoOfFiles |> error5   
-                       List.Empty 
+                     dirWithIncorrNoOfFiles |> error5   
+                     List.Empty 
 
         finally
         () //zatim nepotrebne
     with  
     | :? System.IO.DirectoryNotFoundException as ex -> 
-                                                       ex.Message |> error3
-                                                       List.Empty                                                                                        
+                                                     ex.Message |> error3
+                                                     List.Empty                                                                                        
     | :? System.IO.IOException as                ex -> 
-                                                       ex.Message |> error4 
-                                                       List.Empty
+                                                     ex.Message |> error4 
+                                                     List.Empty
     | _ as                                       ex -> 
-                                                       ex.Message |> error1 //System.Exception
-                                                       List.Empty           
+                                                     ex.Message |> error1 //System.Exception
+                                                     List.Empty           
                                 
     
      
